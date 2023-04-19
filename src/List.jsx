@@ -56,7 +56,7 @@ text: PropTypes.string.isRequired
 };
 
 WrappedListComponent.defaultProps = {
-items: null
+items:[],
 };
 
 const List = memo(WrappedListComponent);
