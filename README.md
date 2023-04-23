@@ -59,17 +59,27 @@ a)ERROR
 
  
 This is a syntax error of props-type In order to validate collective types there are way to combine them and use. For ARRAYS OF NUMBER we have “ arrayOf “ and for object shape “Shape” and the correct syntax is PropTypes.arrayOf([type])  and PropTypes.shape().
+
 Problematic code:
+
+```
 WrappedListComponent.propTypes = {
   items: PropTypes.array(PropTypes.shapeOf({
     text: PropTypes.string.isRequired,
   })),
 };
+
+```
+
 Fixed code
+
+```
 WrappedListComponent.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
     text: PropTypes.string.isRequired,
   })),};
+  
+  ```
 
 
 B) ERROR
@@ -78,11 +88,16 @@ B) ERROR
 
  
 In this code the useState Function variable names “setSelectedIndex”and “selectedIndex” names are wrongly used . The variable and the function names are interchanged but their usage still maintained same leading to error.
+
 Problematic code:
+```
 const [setSelectedIndex, selectedIndex] = useState();
+```
 
 Fixed code:
+```
 const [selectedIndex, setSelectedIndex] = useState();
+```
 
 C) Warning
 
@@ -90,13 +105,17 @@ C) Warning
 
  
 This warning was introduced in React 16.3.1 here in this code  passing state setters from parent to child is a fine thing to do but  calling those setters while rendering is never a smart idea, which is the problem. And this warning message will be the outcome .So to overcome this we should use an “ARROW FUNCTION”.
-Problematic code
-onClick={onClickHandler(index)}
 
+Problematic code
+```
+onClick={onClickHandler(index)}
+```
 
 
 Fixed code
+```
 onClick={()=>onClickHandler(index)}
+```
 
 d) Warning
  
@@ -105,7 +124,9 @@ d) Warning
 
 
 A distinct "key" is needed when using the array "map" function to map the elements of an array in order to distinguish and keep track of the elements visited. The key was previously missing, but my code fixed that. Cite "fixed code"
+
 Problematic code
+```
 {items.map((item, index) => (
         <SingleListItem
           onClickHandler={() => handleClick(index)}
@@ -114,9 +135,11 @@ Problematic code
           isSelected={setSelectedIndex===index}
         />
       ))}
+```
 
 
 Fixed code
+```
 {items.map((item, index) => (
         <SingleListItem
           onClickHandler={() => handleClick(index)}
@@ -126,26 +149,28 @@ Fixed code
           Key={index}
         />
       ))}
-
+```
 
 e) Warning
 
+```
 WrappedListComponent.defaultProps = {
   items: null,
 };
+```
 
 Use "[]" to initialise a variable using an empty array. The variable items, however, is initialised with "null" in the code. This is a Reactjs development anti-pattern, and using "null" is not advised.
 
 Fixed code
-
+```
 WrappedListComponent.defaultProps = {
   items: [],
 };
-
+```
 
 f) Warning
 
-
+```
 WrappedSingleListItem.propTypes = {
 index: PropTypes.number,
 isSelected: PropTypes.bool,
@@ -155,11 +180,13 @@ text: PropTypes.string.isRequired
 
 isSelected={setSelectedIndex}
 
+```
+
 This "isSelected" function uses react "prop-types" to validate and expects a bool value as an argument. We must change "selectedIndex" to "selectedIndex === index" in order to correct this issue.
 
 
 Fixed Code:
-
+```
 WrappedSingleListItem.propTypes = {
 index: PropTypes.number,
 isSelected: PropTypes.bool,
@@ -168,11 +195,11 @@ text: PropTypes.string.isRequired
 };
 
 isSelected={setSelectedIndex===index}
-
+```
 
 Q3: Completely fixed code:
 
-
+```
 import React, { useState, memo } from "react";
 import PropTypes from "prop-types";
 
@@ -241,7 +268,7 @@ export default List;
 
 
 
-
+```
 
 
 OUTPUT:
